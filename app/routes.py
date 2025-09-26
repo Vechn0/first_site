@@ -1,14 +1,4 @@
-"""Главный модуль Flask-приложения."""
-from flask import Flask
-
-app = Flask(__name__)
-
-
-@app.route('/')
-# первая функция
-def hello():
-    """Возвращает приветствие на главной странице."""
-    return "Hello,Flask!"
+from app import app
 
 
 @app.route('/')
@@ -43,20 +33,20 @@ def info():
 
 @app.route('/calc/<int:num1>/<int:num2>')
 def calc(num1,num2):
-    return f'The sum of {num1} and {num2} is {num1+num2}'
+    try:
+        return f'The sum of {num1} and {num2} is {num1+num2}'
+    except ValueError:
+        print("Введите корректное число!")
 
-@app.route('/reverse/<str:message>')
+@app.route('/reverse/<message>')
 def reverse_message(message):
     if len(message) < 2:
         return 'Слишком короткое сообщение!'
     return message[0:0-1]
 
-@app.route('/user/<str:name>/<int:age>')
+@app.route('/user/<name>/<int:age>')
 def user_info(name,age):
     if age < 0:
         return f'Вы ввели неправильный возраст'
     else:
         return f'Hello, {name}! You are {age} years old'
-
-if __name__ == '__main__':
-    app.run(debug=True)
