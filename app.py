@@ -47,11 +47,16 @@ def calc(num1,num2):
 
 @app.route('/reverse/<str:message>')
 def reverse_message(message):
+    if len(message) < 2:
+        return 'Слишком короткое сообщение!'
     return message[0:0-1]
 
 @app.route('/user/<str:name>/<int:age>')
 def user_info(name,age):
-    return f'Hello, {name}! You are {age} years old'
+    if age < 0:
+        return f'Вы ввели неправильный возраст'
+    else:
+        return f'Hello, {name}! You are {age} years old'
 
 if __name__ == '__main__':
     app.run(debug=True)
