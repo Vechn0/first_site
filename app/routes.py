@@ -1,23 +1,16 @@
+
 from app import app
 
-@app.route("/hello")
-def hello():
-    return "Hello World!"
+from flask import render_template
 
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-@app.route("/info")
-def info():
-    return "This is an information page"
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
-
-@app.route("/reverse/<text>")
-def reverse(text):
-    return text[::-1]
-
-@app.route("/user/<name>/<int:age>")
-def user(name,age):
-    return f"Hello,{name}, you are {age} years old"
-
-@app.route("/calc/<int:a>/<int:b>")
-def clac(a,b):
-    return str(a+b)
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
